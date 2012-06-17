@@ -62,6 +62,7 @@
 #include <mach/timex.h>
 
 #include <plat/core.h>
+#include <plat/script.h>
 #include <plat/sys_config.h>
 
 /**
