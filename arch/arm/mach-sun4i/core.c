@@ -110,7 +110,7 @@ static void __init reserve_fb(void)
 }
 
 #else
-static void __init reserve_fb(void) {}
+static void __init reserve_fb(const char *script_base) {}
 #endif
 
 #if defined CONFIG_SUN4I_G2D || defined CONFIG_SUN4I_G2D_MODULE
@@ -175,11 +175,13 @@ static void reserve_sys(void)
 
 static void __init sw_core_reserve(void)
 {
+	char *script = (char *)(PAGE_OFFSET + 0x3000000);
+
 	pr_info("Memory Reserved:\n");
 	reserve_sys();
 	reserve_ve();
-	reserve_g2d();
-	reserve_fb();
+	reserve_g2d(script);
+	reserve_fb(script);
 }
 
 void sw_irq_ack(struct irq_data *irqd)
