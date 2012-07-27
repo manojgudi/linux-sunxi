@@ -103,14 +103,14 @@ unsigned long fb_size = SZ_32M;
 EXPORT_SYMBOL(fb_start);
 EXPORT_SYMBOL(fb_size);
 
-static void __init reserve_fb(void)
+static inline void reserve_fb(void)
 {
 	memblock_reserve(fb_start, fb_size);
 	pr_reserve_info("LCD ", fb_start, fb_size);
 }
 
 #else
-static void __init reserve_fb(const char *script_base) {}
+static inline void reserve_fb(void) {}
 #endif
 
 #if defined CONFIG_SUN4I_G2D || defined CONFIG_SUN4I_G2D_MODULE
@@ -127,13 +127,13 @@ unsigned long g2d_size = SZ_1M * 16;
 EXPORT_SYMBOL(g2d_start);
 EXPORT_SYMBOL(g2d_size);
 
-static void __init reserve_g2d(void)
+static inline void reserve_g2d(void)
 {
 	memblock_reserve(g2d_start, g2d_size);
 	pr_reserve_info("G2D ", g2d_start, g2d_size);
 }
 #else
-static void __init reserve_g2d(void) {}
+static inline void reserve_g2d(void) {}
 #endif
 
 #if defined CONFIG_VIDEO_DECODER_SUN4I || defined CONFIG_VIDEO_DECODER_SUN4I_MODULE
@@ -151,7 +151,7 @@ unsigned long ve_size = (SZ_64M + SZ_16M);
 EXPORT_SYMBOL(ve_start);
 EXPORT_SYMBOL(ve_size);
 
-static void __init reserve_ve(void)
+static inline void reserve_ve(void)
 {
     /* The users of the VE block aren't enabled via script flags, so if their
      * driver gets compiled in we have to unconditionally reserve memory for
@@ -164,10 +164,10 @@ static void __init reserve_ve(void)
 }
 
 #else
-static void __init reserve_ve(void) {}
+static inline void reserve_ve(void) {}
 #endif
 
-static void reserve_sys(void)
+static inline void reserve_sys(void)
 {
 	memblock_reserve(SYS_CONFIG_MEMBASE, SYS_CONFIG_MEMSIZE);
 	pr_reserve_info("SYS ", SYS_CONFIG_MEMBASE, SYS_CONFIG_MEMSIZE);
@@ -175,13 +175,13 @@ static void reserve_sys(void)
 
 static void __init sw_core_reserve(void)
 {
-	char *script = (char *)(PAGE_OFFSET + 0x3000000);
+	sunxi_script_init((void*)(PAGE_OFFSET + 0x3000000));
 
 	pr_info("Memory Reserved:\n");
 	reserve_sys();
 	reserve_ve();
-	reserve_g2d(script);
-	reserve_fb(script);
+	reserve_g2d();
+	reserve_fb();
 }
 
 void sw_irq_ack(struct irq_data *irqd)
