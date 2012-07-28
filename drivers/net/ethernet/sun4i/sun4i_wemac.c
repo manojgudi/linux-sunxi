@@ -1807,7 +1807,7 @@ static int __devinit wemac_probe(struct platform_device *pdev)
 			db->mos_pin_handler = gpio_request(db->mos_gpio, 1);
 			if (0 == db->mos_pin_handler)
 				printk(KERN_ERR "can't request gpio_port %d, port_num %d\n",
-						db->mos_gpio->port, db->mos_gpio->port_num);
+						db->mos_gpio->d.port, db->mos_gpio->d.port_num);
 		}
 	}
 #endif

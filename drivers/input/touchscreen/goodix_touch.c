@@ -102,7 +102,7 @@ static struct workqueue_struct *goodix_wq;
 #endif
 ///////////////////////////////////////////////
 //specific tp related macro: need be configured for specific tp
-#define CTP_IRQ_NO			(gpio_int_info[0].port_num)
+#define CTP_IRQ_NO			(gpio_int_info[0].d.port_num)
 #define CTP_IRQ_MODE			(NEGATIVE_EDGE)
 #define CTP_NAME			GOODIX_I2C_NAME
 #define TS_RESET_LOW_PERIOD		(15)
@@ -211,14 +211,14 @@ static int ctp_set_irq_mode(char *major_key , char *subkey, ext_int_mode int_mod
 	}
 	gpio_get_one_pin_status(gpio_int_hdle, gpio_int_info, subkey, 1);
 	pr_info("%s, %d: gpio_int_info, port = %d, port_num = %d. \n", __func__, __LINE__, \
-		gpio_int_info[0].port, gpio_int_info[0].port_num);
+		gpio_int_info[0].d.port, gpio_int_info[0].d.port_num);
 #endif
 
 #ifdef AW_GPIO_INT_API_ENABLE
 #else
 	pr_info(" INTERRUPT CONFIG\n");
-	reg_num = (gpio_int_info[0].port_num)%8;
-	reg_addr = (gpio_int_info[0].port_num)/8;
+	reg_num = (gpio_int_info[0].d.port_num)%8;
+	reg_addr = (gpio_int_info[0].d.port_num)/8;
 	reg_val = readl(gpio_addr + int_cfg_addr[reg_addr]);
 	reg_val &= (~(7 << (reg_num * 4)));
 	reg_val |= (int_mode << (reg_num * 4));
@@ -227,7 +227,7 @@ static int ctp_set_irq_mode(char *major_key , char *subkey, ext_int_mode int_mod
 	ctp_clear_penirq();
 
 	reg_val = readl(gpio_addr+PIO_INT_CTRL_OFFSET);
-	reg_val |= (1 << (gpio_int_info[0].port_num));
+	reg_val |= (1 << (gpio_int_info[0].d.port_num));
 	writel(reg_val,gpio_addr+PIO_INT_CTRL_OFFSET);
 
 	udelay(1);

@@ -230,7 +230,7 @@ static int __init sun4i_gpio_init(void) {
 				gpio_i->info.port_num);
 
 		/* Turn the name to pa1, pb2 etc... */
-		sprintf(gpio_i->name, "p%c%d", 'a'+gpio_i->info.port-1, gpio_i->info.port_num);
+		sprintf(gpio_i->name, "p%c%d", 'a'+gpio_i->info.d.port-1, gpio_i->info.d.port_num);
 
 		sun4i_gpio_dbg("psun4i_gpio->name%s\n", gpio_i->name);
 
