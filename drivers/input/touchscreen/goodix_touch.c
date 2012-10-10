@@ -121,7 +121,7 @@ static int gpio_wakeup_hdle = 0;
 static int gpio_reset_hdle = 0;
 static int gpio_wakeup_enable = 1;
 static int gpio_reset_enable = 1;
-static user_gpio_set_t gpio_int_info[1];
+static struct user_gpio_set gpio_int_info[1];
 
 static int screen_max_x = 0;
 static int screen_max_y = 0;

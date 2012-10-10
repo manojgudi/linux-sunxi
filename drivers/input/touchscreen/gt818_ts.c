@@ -96,7 +96,7 @@ static int gpio_wakeup_hdle = 0;
 static int gpio_reset_hdle = 0;
 static int gpio_wakeup_enable = 1;
 static int gpio_reset_enable = 1;
-static user_gpio_set_t  gpio_int_info[1];
+static struct user_gpio_set gpio_int_info[1];
 
 static int screen_max_x = 0;
 static int screen_max_y = 0;
@@ -358,7 +358,7 @@ static int ctp_fetch_sysconfig_para(void)
 	int ret = -1;
 	int ctp_used = -1;
 	char name[I2C_NAME_SIZE];
-	script_parser_value_type_t type = SCRIPT_PARSER_VALUE_TYPE_STRING;
+	enum script_parser_value_type type = SCRIPT_PARSER_VALUE_TYPE_STRING;
 
 	printk("%s. \n", __func__);
 	memset(name, 0, I2C_NAME_SIZE);
