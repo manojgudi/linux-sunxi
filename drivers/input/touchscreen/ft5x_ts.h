@@ -24,7 +24,7 @@
 #define __LINUX_FT5X_TS_H__
 
 // gpio base address
-#define CONFIG_FT5X0X_MULTITOUCH     (1)
+//#define CONFIG_FT5X0X_MULTITOUCH     (1)
 #define CALIBRATION  (1)
 #define UPGRADE   (5)
 //#define CALIBRATION _IO(CALIBRATION_FLAG,0)
