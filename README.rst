@@ -22,7 +22,7 @@ COMPILING KERNEL
 
         git checkout sunxi-3.0
 
-#. Install ``u-boot-tools``
+#. Install ``u-boot-tools``::
 
         sudo apt-get install u-boot-tools
 
