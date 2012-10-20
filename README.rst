@@ -22,6 +22,9 @@ COMPILING KERNEL
 
         git checkout sunxi-3.0
 
+#. Install ``u-boot-tools``
+
+        sudo apt-get install u-boot-tools
 
 #. To compile kernel download and install ``Sourcery CodeBench Lite Edition``, then issue::
 
