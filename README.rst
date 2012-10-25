@@ -22,6 +22,13 @@ COMPILING KERNEL
 
         git checkout sunxi-3.0
 
+#. Compile the a13_configuration ::
+
+        make ARCH=arm a13_defconfig
+
+#. A13-OLinuXino customization can be done using ::
+
+        make ARCH=arm menuconfig
 
 #. To compile kernel download and install ``Sourcery CodeBench Lite Edition``, then issue::
 
