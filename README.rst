@@ -26,9 +26,16 @@ COMPILING KERNEL
 
         make ARCH=arm a13_defconfig
 
+
 #. A13-OLinuXino customization can be done using ::
 
         make ARCH=arm menuconfig
+
+
+#. Install ``u-boot-tools``::
+
+        sudo apt-get install u-boot-tools
+
 
 #. To compile kernel download and install ``Sourcery CodeBench Lite Edition``, then issue::
 
