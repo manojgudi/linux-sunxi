@@ -1,0 +1,3 @@
+#!/bin/bash
+pngtopnm ./aakash_logo.png | pnmtoplainpnm > ./logo_linux_clut224.ppm
+

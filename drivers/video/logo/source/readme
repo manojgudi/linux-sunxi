@@ -1,0 +1,10 @@
+1> Install following packages:
+>> pngtopnm
+>> gimp
+	Convert the image into 224 color format using gimp: (gimp>image>mode>indexed>max. number of colors 223) and save as aakash_logo.png
+	
+2> ./convert
+
+3> copy "logo_linux_clut224.ppm" to ~/linux-sunxi/drivers/video/logo/
+
+4> compile with LOGO_LINUX_CLUT224 config
