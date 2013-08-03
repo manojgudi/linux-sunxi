@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA 02111-1307 USA
  */
+#include <linux/module.h>
+#include <linux/init.h>
 #include "disp_display_i.h"
 #include "disp_lcd.h"
 #include "disp_display.h"
@@ -24,6 +26,8 @@
 #include "disp_clk.h"
 #include "OSAL_Pin.h"
 
+
+int MY_VARIABLE;
 static __lcd_flow_t open_flow[2];
 static __lcd_flow_t close_flow[2];
 __panel_para_t gpanel_info[2];
@@ -493,6 +497,7 @@ LCD_get_panel_para(__u32 sel, __panel_para_t *info)
 static void
 LCD_get_sys_config(__u32 sel, __disp_lcd_cfg_t *lcd_cfg)
 {
+	
 	char io_name[28][20] = {
 		"lcdd0", "lcdd1", "lcdd2", "lcdd3", "lcdd4", "lcdd5",
 		"lcdd6", "lcdd7", "lcdd8", "lcdd9", "lcdd10", "lcdd11",
@@ -504,6 +509,7 @@ LCD_get_sys_config(__u32 sel, __disp_lcd_cfg_t *lcd_cfg)
 	char primary_key[20], sub_name[20];
 	int i = 0;
 	int ret;
+
 
 	sprintf(primary_key, "lcd%d_para", sel);
 
@@ -536,8 +542,10 @@ LCD_get_sys_config(__u32 sel, __disp_lcd_cfg_t *lcd_cfg)
 			       "data:%d\n", primary_key, gpio_info->port,
 			       gpio_info->port_num, gpio_info->data);
 			lcd_cfg->lcd_bl_en_used = 1;
+			MY_VARIABLE = lcd_cfg->lcd_bl_en_used;
 		}
 	}
+
 
 	/* lcd_power */
 	lcd_cfg->lcd_power_used = 0;
@@ -631,14 +639,20 @@ LCD_get_sys_config(__u32 sel, __disp_lcd_cfg_t *lcd_cfg)
 	if (ret < 0) {
 		DE_INF("%s.%s not exit\n", primary_key, sub_name);
 		lcd_cfg->init_bright = 192;
+		DE_INF(KERN_ALERT "It was here %d", lcd_cfg->init_bright);
 	} else {
 		DE_INF("%s.%s = %d\n", primary_key, sub_name, value);
 		if (value > 256)
 			value = 256;
-
+		DE_INF(KERN_ALERT "OR HERE %d",value);
 		lcd_cfg->init_bright = value;
+		
 	}
+
 }
+
+EXPORT_SYMBOL(MY_VARIABLE);
+//EXPORT_SYMBOL(LCD_get_sys_config);
 
 void LCD_delay_ms(__u32 ms)
 {
